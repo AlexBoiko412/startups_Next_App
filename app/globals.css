@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@layer utilities{
+  .main-section {
+    @apply  m-0 px-20 py-5 flex flex-col
+  }
+
+  .cards-grid {
+    @apply grid md:grid-cols-3 sm:grid-cols-2 gap-4
+  }
+  .startup-card {
+    @apply flex flex-col justify-between gap-2 border-[2px] rounded-[2px] shadow-card shadow-gray-300 border-black transition duration-500 px-4 py-2 hover:bg-gray-50
+  }
+  .startup-card_title {
+    @apply text-xl font-semibold
+  }
+  .startup-card_description {
+    @apply text-[1rem]
+  }
+  .startup-card_image {
+    @apply rounded
+  }
+
+
+  .heading {
+    @apply text-black font-bold text-4xl py-4
+  }
+  .sub-heading {
+    @apply text-black-200 font-normal text-[1rem]
+  }
+  .title {
+    @apply text-black font-bold text-2xl py-4
+  }
+
+  .search-form {
+    @apply flex items-center justify-center text-black
+  }
+
+
+  .button {
+    @apply cursor-pointer bg-primary px-10 py-3  text-black duration-200 hover:bg-primary-dark
+  }
+  .search-button {
+    @apply cursor-pointer bg-black duration-200 hover:bg-gray-900 h-[100%] w-10 text-center flex justify-center items-center text-white
+  }
+
+
+  .poster-section {
+    @apply h-[75vh] m-0 px-20 bg-black flex flex-col poster-background
+  }
+  .poster-content {
+    @apply flex flex-col items-center justify-evenly backdrop-blur-[2px] min-h-[100%] rounded-[5rem]
+  }
+  .poster-background {
+    background: rgba(0, 0, 0, 0.6) url("../public/home.jpg") no-repeat center;
+    background-size: cover;
+    background-blend-mode: darken;
+  }
+  .shadow-navbar {
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.52);
+  }
+}
+
+
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
