@@ -37,7 +37,7 @@ const StartupCard = ({ post }) => {
             </Link>
 
 
-            <div className="flex justify-between text-sm font-normal">
+            <div className="flex justify-between items-center text-sm font-normal">
                 <p className={"leading-3"}>
                     {formatDate(post._createdAt)}
                 </p>
@@ -46,11 +46,11 @@ const StartupCard = ({ post }) => {
                     <p>{post.views}</p>
                 </div>
             </div>
-            <p className={"font-bold flex justify-start items-center"}>
+            <div className={"font-bold flex justify-start gap-4  items-center"}>
                 <Link className={""}
                     href={`/authors/${post._author?._id}`}>
                     <Image
-
+                        className={"rounded-full"}
                         src={"https://placehold.co/48x48"}
                         width={48}
                         height={48}
@@ -62,7 +62,7 @@ const StartupCard = ({ post }) => {
                         {post._author?.name}
                     </span>
                 </Link>
-            </p>
+            </div>
         </li>
     );
 };
