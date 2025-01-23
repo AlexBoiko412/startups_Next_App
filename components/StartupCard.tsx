@@ -3,6 +3,7 @@ import {formatDate} from "@/lib/utils";
 import {Eye} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import Button from "@/components/ui/Button";
 
 const StartupCard = ({ post }) => {
     
@@ -46,22 +47,29 @@ const StartupCard = ({ post }) => {
                     <p>{post.views}</p>
                 </div>
             </div>
-            <div className={"font-bold flex justify-start gap-4  items-center"}>
-                <Link className={""}
-                    href={`/authors/${post._author?._id}`}>
-                    <Image
-                        className={"rounded-full"}
-                        src={"https://placehold.co/48x48"}
-                        width={48}
-                        height={48}
-                        alt={"author"}
-                    />
-                </Link>
-                <Link href={`/authors/${post._author?._id}`}>
-                    <span className={"duration-250 hover:text-gray-600"}>
+            <div className={"flex justify-between"}>
+                <div className={"font-bold flex justify-start gap-4  items-center"}>
+                    <Link className={""}
+                          href={`/authors/${post._author?._id}`}>
+                        <Image
+                            className={"rounded-full"}
+                            src={"https://placehold.co/48x48"}
+                            width={32}
+                            height={32}
+                            alt={"author"}
+                        />
+                    </Link>
+                    <Link href={`/authors/${post._author?._id}`}>
+                    <span className={"text-sm duration-250 hover:text-gray-600"}>
                         {post._author?.name}
                     </span>
-                </Link>
+                    </Link>
+                </div>
+                <Button className={""}>
+                    <Link href={`/startup/${post._id}`}>
+                        Details
+                    </Link>
+                </Button>
             </div>
         </li>
     );

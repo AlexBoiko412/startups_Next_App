@@ -36,6 +36,9 @@
   .startup-card_image {
     @apply rounded
   }
+  .startup-card_button {
+    @apply rounded-full px-2 py-1 text-[0.8rem] text-white bg-black duration-300  hover:bg-black-200
+  }
 
 
   .heading {
