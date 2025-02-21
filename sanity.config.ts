@@ -16,8 +16,8 @@ import {markdownSchema} from "sanity-plugin-markdown";
 
 export default defineConfig({
   basePath: '/studio',
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "",
   // Add and edit the content schema in the './sanity/schemaTypes' folder
   schema,
   plugins: [
