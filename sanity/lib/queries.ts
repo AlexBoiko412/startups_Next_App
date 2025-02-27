@@ -13,7 +13,7 @@ export const STARTUPS_QUERY =
     description,
     _createdAt,
 }`)
-export const STARTUPS_BY_ID_QUERY =
+export const STARTUP_BY_ID_QUERY =
     defineQuery(
         `*[_type == "startup" && _id == $id ][0] {
     _id,
@@ -27,4 +27,11 @@ export const STARTUPS_BY_ID_QUERY =
     description,
     pitch,
     _createdAt,
+}`)
+
+export const STARTUP_VIEWS =
+    defineQuery(
+        `*[_type == "startup" && !defined($id) || _id == $id][0]{
+    _id,
+    views
 }`)

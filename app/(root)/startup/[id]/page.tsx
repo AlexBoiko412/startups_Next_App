@@ -1,11 +1,16 @@
 import {client} from "@/sanity/lib/client";
-import {STARTUPS_BY_ID_QUERY} from "@/sanity/lib/queries";
+import {STARTUP_BY_ID_QUERY} from "@/sanity/lib/queries";
 import {notFound} from "next/navigation";
-import {StartupCardType} from "@/components/StartupCard";
 import {formatDate} from "@/lib/utils";
-import React from "react";
+import React, {Suspense} from "react";
 import Link from "next/link";
 import Image from "next/image";
+
+import markdown from "markdown-it"
+import {Skeleton} from "@/components/ui/skeleton";
+import Views from "@/components/ui/Views";
+
+const md = markdown();
 
 
 export const experimental_ppr = true
@@ -13,18 +18,26 @@ export const experimental_ppr = true
 export default async function Startup({params}: {params: Promise<{id: string}>}) {
     const id = (await params).id;
 
-    const post: StartupCardType = await client.fetch(STARTUPS_BY_ID_QUERY, {id})
+    const post = await client.fetch(STARTUP_BY_ID_QUERY, {id})
 
     if(!post) {
         return notFound();
     }
 
+    const parsedDetails = md.render(post?.pitch || "");
+
     return (
         <>
             <section className={"pt-10 px-20"}>
-                <p className={"category-button"}>
-                    {post.category}
-                </p>
+                <div className={"flex justify-between"}>
+                    <p className={"category-button"}>
+                        {post.category}
+                    </p>
+                    <Suspense fallback={<Skeleton/>}>
+                        <Views id={post._id}/>
+                    </Suspense>
+                </div>
+
                 <p className={"heading"}>
                     {post.title}
                 </p>
@@ -36,7 +49,7 @@ export default async function Startup({params}: {params: Promise<{id: string}>})
                                   href={`/authors/${post.author?._id}`}>
                                 <Image
                                     className={"rounded-full"}
-                                    src={"https://placehold.co/48x48"}
+                                    src={post.author.image}
                                     width={32}
                                     height={32}
                                     alt={"author"}
@@ -54,6 +67,28 @@ export default async function Startup({params}: {params: Promise<{id: string}>})
                         </p>
                     </div>
                 </div>
+
+                <Image
+                    src={post?.image}
+                    alt={post?.title}
+                    width={1000}
+                    height={1000}
+                    className={"py-4"}
+                />
+                {
+                    parsedDetails
+                    ? <article
+                        className={"prose text-black"}
+                            dangerouslySetInnerHTML={{__html: parsedDetails}}
+
+                        />
+                        : <p>
+                        No Details
+                        </p>
+                }
+            </section>
+
+            <section className={"pt-10 px-20"}>
 
             </section>
          </>
