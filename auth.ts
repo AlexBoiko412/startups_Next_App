@@ -1,6 +1,53 @@
 import NextAuth from "next-auth"
 import GitHub from "@auth/core/providers/github";
+import {client} from "@/sanity/lib/client";
+import {AUTHOR_BY_GITHUB_ID_QUERY} from "@/sanity/lib/queries";
+import {writeClient} from "@/sanity/lib/write-client";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [GitHub],
+    callbacks: {
+        async signIn({ user, profile}){
+            const existUser = await client.withConfig({
+                useCdn: false,
+            }).fetch(AUTHOR_BY_GITHUB_ID_QUERY, {id: profile?.id})
+
+            if(!existUser){
+
+                await writeClient.create({
+                    _type: "author",
+                    id: profile?.id,
+                    email: user.email,
+                    name: user.name,
+                    username: profile?.login,
+                    image: user.image,
+                    bio: profile?.bio || "",
+                })
+            }
+
+
+            return true;
+        },
+        async jwt({token, profile, account}) {
+            if(profile && account) {
+                const user = await client.withConfig({
+                    useCdn: false,
+                }).fetch(AUTHOR_BY_GITHUB_ID_QUERY, {
+                    id: profile?.id,
+                })
+
+                token.id = user?._id
+            }
+
+            return token;
+        },
+        async session({token, session}) {
+
+            Object.assign(session, {
+                id: token.id
+            })
+
+            return session;
+        }
+    }
 })
