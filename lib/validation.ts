@@ -9,11 +9,7 @@ export const startupSchema = z.object({
             const res = await fetch(url, {method: "HEAD"})
             const type = res.headers.get("content-type")
 
-            if(type?.startsWith("image/")) {
-                return true
-            } else {
-                return false
-            }
+            type?.startsWith("image/")
         } catch (error) {
             return false
         }
