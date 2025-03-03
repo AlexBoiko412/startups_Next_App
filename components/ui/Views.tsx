@@ -3,7 +3,6 @@ import React from "react";
 import {client} from "@/sanity/lib/client";
 import {STARTUP_VIEWS} from "@/sanity/lib/queries";
 import {writeClient} from "@/sanity/lib/write-client";
-import {after} from "next/server";
 
 
 export default async function Views({id}: {id: string}) {
@@ -11,9 +10,8 @@ export default async function Views({id}: {id: string}) {
         useCdn: false
     }).fetch(STARTUP_VIEWS, { id })
 
-    after(async () => {
-        await writeClient.patch(id).set({views: views + 1}).commit()
-    })
+
+    await writeClient.patch(id).set({views: views + 1}).commit()
 
 
     return (

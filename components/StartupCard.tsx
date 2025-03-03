@@ -3,7 +3,7 @@ import {formatDate} from "@/lib/utils";
 import {Eye} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import Button from "@/components/ui/Button";
+import {Button} from "./ui/Button"
 import {Author, Startup} from "@/sanity.types";
 
 export type StartupCardType = Omit<Startup, "author"> & {author?: Author}
