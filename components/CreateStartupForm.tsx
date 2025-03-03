@@ -9,17 +9,18 @@ import {Button} from "@/components/ui/Button";
 
 
 const initialState = {
-    message: ""
+    message: "",
+    status: "Init"
 }
 
 const CreateStartupForm = () => {
 
-
-    const [state, action, isPending] = useActionState<Record<string, string>, FormData>(createStartup, initialState)
+    const [errors, serErrors] = useState<Record<string, string>>({})
+    const [state, action, isPending] = useActionState(createStartup, initialState)
     const [pitch, setPitch] = useState("**Hello world!**")
 
 
-    async function createStartup(state: Record<string, string>, formData: FormData) {
+    async function createStartup(state, formData: FormData) {
         return {
 
         }
@@ -44,7 +45,7 @@ const CreateStartupForm = () => {
                     className=""
                     placeholder={"Title"}
                 />
-                {state.title && <p>{state.title}</p>}
+                {errors.title && <p>{errors.title}</p>}
             </div>
 
             <div>
@@ -61,7 +62,7 @@ const CreateStartupForm = () => {
                     className=""
                     placeholder={"Description"}
                 />
-                {state.description && <p>{state.description}</p>}
+                {errors.description && <p>{errors.description}</p>}
             </div>
             <div>
                 <label
@@ -77,7 +78,7 @@ const CreateStartupForm = () => {
                     className=""
                     placeholder={"Category"}
                 />
-                {state.category && <p>{state.category}</p>}
+                {errors.category && <p>{errors.category}</p>}
             </div>
             <div>
                 <label
@@ -93,7 +94,7 @@ const CreateStartupForm = () => {
                     className=""
                     placeholder={"Link"}
                 />
-                {state.link && <p>{state.link}</p>}
+                {errors.link && <p>{errors.link}</p>}
             </div>
             <div>
                 <label
@@ -119,7 +120,7 @@ const CreateStartupForm = () => {
                         disallowedElements: ["style"]
                     }}
                 />
-                {state.pitch && <p>{state.pitch}</p>}
+                {errors.pitch && <p>{errors.pitch}</p>}
             </div>
 
 
