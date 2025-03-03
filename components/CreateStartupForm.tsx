@@ -6,6 +6,8 @@ import {useActionState, useState} from "react";
 import {Textarea} from "@/components/ui/textarea";
 import MDEditor from "@uiw/react-md-editor"
 import {Button} from "@/components/ui/Button";
+import {startupSchema} from "@/lib/validation";
+import {ZodError} from "zod";
 
 
 const initialState = {
@@ -15,13 +17,45 @@ const initialState = {
 
 const CreateStartupForm = () => {
 
-    const [errors, serErrors] = useState<Record<string, string>>({})
+    const [errors, setErrors] = useState<Record<string, string>>({})
     const [state, action, isPending] = useActionState(createStartup, initialState)
     const [pitch, setPitch] = useState("**Hello world!**")
 
 
-    async function createStartup(state, formData: FormData) {
-        return {
+    async function createStartup(prevState: any, formData: FormData) {
+        try {
+            const formDataValues  = {
+                title: formData.get("title") as string,
+                description: formData.get("description") as string,
+                startup: formData.get("startup") as string,
+
+                link: formData.get("link") as string,
+                pitch: pitch,
+            }
+
+            await startupSchema.parseAsync(formDataValues)
+
+            // const result = await createIdea(prevState, formData, pitch)
+
+            // console.log(result)
+        } catch (e) {
+            if(e instanceof ZodError) {
+                const fieldErrors = e.flatten().fieldErrors
+
+                setErrors(fieldErrors as unknown as Record<string, string>)
+
+                return {
+                    ...prevState,
+                    message: "Input Error",
+                    status: "ERROR"
+                }
+            }
+            return {
+                ...prevState,
+                message: "Unexpected Error",
+                status: "ERROR"
+            }
+        } finally {
 
         }
     }
@@ -29,6 +63,7 @@ const CreateStartupForm = () => {
     return (
         <form
             action={() => {}}
+            onClick={(e) => e.preventDefault()}
             className={"flex flex-col gap-10"}
         >
             <div>
