@@ -7,7 +7,8 @@ import {Textarea} from "@/components/ui/textarea";
 import MDEditor from "@uiw/react-md-editor"
 import {Button} from "@/components/ui/Button";
 import {startupSchema} from "@/lib/validation";
-import {ZodError} from "zod";
+import z from "zod";
+import {toast} from "sonner"
 
 
 const initialState = {
@@ -28,21 +29,23 @@ const CreateStartupForm = () => {
                 title: formData.get("title") as string,
                 description: formData.get("description") as string,
                 startup: formData.get("startup") as string,
-
+                category: formData.get("category") as string,
                 link: formData.get("link") as string,
                 pitch: pitch,
             }
 
             await startupSchema.parseAsync(formDataValues)
-
+            console.log("BEBRA")
             // const result = await createIdea(prevState, formData, pitch)
 
             // console.log(result)
+
         } catch (e) {
-            if(e instanceof ZodError) {
+            if(e instanceof z.ZodError) {
                 const fieldErrors = e.flatten().fieldErrors
 
                 setErrors(fieldErrors as unknown as Record<string, string>)
+                toast.error("Please check you inputs and try again")
 
                 return {
                     ...prevState,
@@ -50,6 +53,8 @@ const CreateStartupForm = () => {
                     status: "ERROR"
                 }
             }
+
+            toast.error("An Unexpected Error")
             return {
                 ...prevState,
                 message: "Unexpected Error",
@@ -62,8 +67,7 @@ const CreateStartupForm = () => {
 
     return (
         <form
-            action={() => {}}
-            onClick={(e) => e.preventDefault()}
+            action={action}
             className={"flex flex-col gap-10"}
         >
             <div>
@@ -80,7 +84,7 @@ const CreateStartupForm = () => {
                     className=""
                     placeholder={"Title"}
                 />
-                {errors.title && <p>{errors.title}</p>}
+                {errors.title && <p className={"error-label"}>{errors.title}</p>}
             </div>
 
             <div>
@@ -97,7 +101,7 @@ const CreateStartupForm = () => {
                     className=""
                     placeholder={"Description"}
                 />
-                {errors.description && <p>{errors.description}</p>}
+                {errors.description && <p className={"error-label"}>{errors.description}</p>}
             </div>
             <div>
                 <label
@@ -113,7 +117,7 @@ const CreateStartupForm = () => {
                     className=""
                     placeholder={"Category"}
                 />
-                {errors.category && <p>{errors.category}</p>}
+                {errors.category && <p className={"error-label"}>{errors.category}</p>}
             </div>
             <div>
                 <label
@@ -129,7 +133,7 @@ const CreateStartupForm = () => {
                     className=""
                     placeholder={"Link"}
                 />
-                {errors.link && <p>{errors.link}</p>}
+                {errors.link && <p className={"error-label"}>{errors.link}</p>}
             </div>
             <div>
                 <label
@@ -161,7 +165,7 @@ const CreateStartupForm = () => {
 
             <div className="flex justify-center">
                 <Button
-                    type={"submit"}
+                    type="submit"
                     className={"text-3xl p-6"}
                     disabled={isPending}
                 >
