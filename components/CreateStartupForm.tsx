@@ -9,6 +9,7 @@ import {Button} from "@/components/ui/Button";
 import {startupSchema} from "@/lib/validation";
 import z from "zod";
 import {toast} from "sonner"
+import {useRouter} from "next/navigation";
 
 
 const initialState = {
@@ -21,6 +22,7 @@ const CreateStartupForm = () => {
     const [errors, setErrors] = useState<Record<string, string>>({})
     const [state, action, isPending] = useActionState(createStartup, initialState)
     const [pitch, setPitch] = useState("**Hello world!**")
+    const router = useRouter()
 
 
     async function createStartup(prevState: any, formData: FormData) {
@@ -40,6 +42,12 @@ const CreateStartupForm = () => {
 
             // console.log(result)
 
+            // if(result.status === "SUCCESS") {
+            //     toast.error("Your information has been successfully published")
+            //     router.push(`/startup/${result.id}`)
+            // }
+            //
+            // return result
         } catch (e) {
             if(e instanceof z.ZodError) {
                 const fieldErrors = e.flatten().fieldErrors
