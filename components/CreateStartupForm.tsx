@@ -41,8 +41,6 @@ const CreateStartupForm = () => {
 
             const result = await publishStartup(prevState, formData, pitch)
 
-            console.log(result)
-
             if(result.status === "SUCCESS") {
                 toast.error("Your information has been successfully published")
                 router.push(`/startup/${result._id}`)

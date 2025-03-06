@@ -41,7 +41,6 @@ export const publishStartup = async (state: any, formData : FormData, pitch: str
             error: "",
             status: "SUCCESS"})
     } catch (e) {
-        console.log(e)
         return parseServeActionResponse({error: JSON.stringify(e), status: "ERROR"})
     }
 
