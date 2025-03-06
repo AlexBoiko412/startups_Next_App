@@ -46,7 +46,7 @@ export default async function Startup({params}: {params: Promise<{id: string}>})
                     <div className={"flex justify-between items-center"}>
                         <div className={"font-bold flex justify-start gap-4  items-center"}>
                             <Link className={""}
-                                  href={`/authors/${post.author?._id}`}>
+                                  href={`/user/${post.author?._id}`}>
                                 <Image
                                     className={"rounded-full"}
                                     src={post.author.image}

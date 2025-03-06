@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import {Button} from "./ui/Button"
 import {Author, Startup} from "@/sanity.types";
+import {Skeleton} from "@/components/ui/skeleton";
+import {cn} from "@/lib/utils";
 
 export type StartupCardType = Omit<Startup, "author"> & {author?: Author}
 
@@ -65,7 +67,7 @@ const StartupCard = ({ post }: {post: StartupCardType}) => {
                           href={`/user/${author?._id}`}>
                         <Image
                             className={"rounded-full"}
-                            src={"https://placehold.co/48x48"}
+                            src={author?.image || "https://placehold.co/48x48"}
                             width={32}
                             height={32}
                             alt={"author"}
@@ -86,5 +88,17 @@ const StartupCard = ({ post }: {post: StartupCardType}) => {
         </li>
     );
 };
+
+export const StartupCardSkeleton = () => {
+    return (
+        <ul className={"cards-grid"}>
+            {[0, 1, 2,4 ,5 ].map((_) =>  {
+                return (<li key={cn("skeleton", _)}>
+                    <Skeleton className={"startup-card_skeleton"}/>
+                </li>)
+            })}
+        </ul>
+    )
+}
 
 export default StartupCard;

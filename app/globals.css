@@ -25,6 +25,9 @@
   .startup-card_button {
     @apply rounded-full px-2 py-1 text-[0.8rem] text-white bg-black duration-300  hover:bg-black-200
   }
+  .startup-card_skeleton {
+    @apply w-full h-96 rounded-[22px] bg-zinc-400;
+  }
 
 
   .heading {
@@ -86,6 +89,8 @@
   .error-label {
     @apply text-red-600 px-2 py-1 text-red-700
   }
+
+
 }
 
 

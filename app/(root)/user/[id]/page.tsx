@@ -2,9 +2,9 @@ import {auth} from "@/auth";
 import {redirect} from "next/navigation";
 import {client} from "@/sanity/lib/client";
 import {AUTHOR_BY_ID_QUERY} from "@/sanity/lib/queries";
-import NotFound from "next/dist/client/components/not-found-error";
+import {notFound} from "next/navigation";
 import Image from "next/image";
-import StartupCard, {StartupCardType} from "@/components/StartupCard";
+import {StartupCardSkeleton} from "@/components/StartupCard";
 import UserStartupsList from "@/components/UserStartupsList";
 import {Suspense} from "react";
 
@@ -19,7 +19,7 @@ const Page = async ({ params}: {params: Promise<{id: string}>}) => {
     }
 
     const user = await client.fetch(AUTHOR_BY_ID_QUERY, {id })
-    if(!user) return NotFound()
+    if(!user) return notFound()
 
     return (
             <section className={"main-section text-black"}>
@@ -36,7 +36,7 @@ const Page = async ({ params}: {params: Promise<{id: string}>}) => {
                         ? "Your"
                         : "User's"
                 } Startups: </h1>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<StartupCardSkeleton/>}>
                     <UserStartupsList id={id}/>
                 </Suspense>
             </section>
