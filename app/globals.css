@@ -4,7 +4,7 @@
 
 @layer utilities {
   .main-section {
-    @apply  m-0 px-20 py-5 flex flex-col
+    @apply  m-0 px-20 py-5 flex flex-col max-sm:px-2 max-[1200px]:px-4
   }
 
   .cards-grid {
@@ -89,7 +89,6 @@
   .error-label {
     @apply text-red-600 px-2 py-1 text-red-700
   }
-
 
 }
 
