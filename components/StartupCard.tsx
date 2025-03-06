@@ -62,7 +62,7 @@ const StartupCard = ({ post }: {post: StartupCardType}) => {
             <div className={"flex justify-between"}>
                 <div className={"font-bold flex justify-start gap-4  items-center"}>
                     <Link className={""}
-                          href={`/authors/${author?._id}`}>
+                          href={`/user/${author?._id}`}>
                         <Image
                             className={"rounded-full"}
                             src={"https://placehold.co/48x48"}
@@ -71,7 +71,7 @@ const StartupCard = ({ post }: {post: StartupCardType}) => {
                             alt={"author"}
                         />
                     </Link>
-                    <Link href={`/authors/${author?._id}`}>
+                    <Link href={`/user/${author?._id}`}>
                     <span className={"text-sm duration-250 hover:text-gray-600"}>
                         {author?.name}
                     </span>
