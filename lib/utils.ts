@@ -13,3 +13,7 @@ export const formatDate = (date: string): string => {
 
   })
 }
+
+export function parseServeActionResponse<T>(response: T) {
+  return JSON.parse(JSON.stringify(response))
+}

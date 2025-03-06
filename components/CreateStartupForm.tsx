@@ -35,12 +35,14 @@ const CreateStartupForm = () => {
                 link: formData.get("link") as string,
                 pitch: pitch,
             }
+            console.log("Startup startup")
+            console.log("Startup startup", Array.from(formData))
 
             await startupSchema.parseAsync(formDataValues)
             console.log("BEBRA")
-            // const result = await createIdea(prevState, formData, pitch)
+            // const result = await createStartup(prevState, formData, pitch)
 
-            // console.log(result)
+            // console.log(resu lt)
 
             // if(result.status === "SUCCESS") {
             //     toast.error("Your information has been successfully published")
