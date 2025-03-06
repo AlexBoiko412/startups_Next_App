@@ -10,6 +10,7 @@ import {startupSchema} from "@/lib/validation";
 import z from "zod";
 import {toast} from "sonner"
 import {useRouter} from "next/navigation";
+import {publishStartup} from "@/lib/actions";
 
 
 const initialState = {
@@ -35,21 +36,19 @@ const CreateStartupForm = () => {
                 link: formData.get("link") as string,
                 pitch: pitch,
             }
-            console.log("Startup startup")
-            console.log("Startup startup", Array.from(formData))
 
             await startupSchema.parseAsync(formDataValues)
-            console.log("BEBRA")
-            // const result = await createStartup(prevState, formData, pitch)
 
-            // console.log(resu lt)
+            const result = await publishStartup(prevState, formData, pitch)
 
-            // if(result.status === "SUCCESS") {
-            //     toast.error("Your information has been successfully published")
-            //     router.push(`/startup/${result.id}`)
-            // }
-            //
-            // return result
+            console.log(result)
+
+            if(result.status === "SUCCESS") {
+                toast.error("Your information has been successfully published")
+                router.push(`/startup/${result._id}`)
+            }
+
+            return result
         } catch (e) {
             if(e instanceof z.ZodError) {
                 const fieldErrors = e.flatten().fieldErrors
@@ -155,7 +154,7 @@ const CreateStartupForm = () => {
                 <MDEditor
                     data-color-mode={"light"}
                     value={pitch}
-                    onChange={(value, event) => {
+                    onChange={(value) => {
                         setPitch(value || "")
                     }}
                     style={{ borderRadius: "6px", overflow: "hidden" }}

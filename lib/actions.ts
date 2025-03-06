@@ -5,7 +5,7 @@ import {parseServeActionResponse} from "@/lib/utils";
 import slugify from "slugify";
 import {writeClient} from "@/sanity/lib/write-client";
 
-export const createStartup = async (state: any, formData : FormData, pitch: "") => {
+export const publishStartup = async (state: any, formData : FormData, pitch: string) => {
 
     const session = await auth()
 
@@ -24,7 +24,7 @@ export const createStartup = async (state: any, formData : FormData, pitch: "") 
             pitch: pitch,
             slug: {
                 _type: "slug",
-                slug: slug,
+                current: slug,
             },
             image: startup.link,
             category: startup.category,

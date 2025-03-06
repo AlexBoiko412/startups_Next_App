@@ -41,10 +41,7 @@ export const startup = defineType({
         defineField({
             name: "category",
             type: "string",
-            validation: (rule) => rule.min(1).max(20),
-            options: {
-                list: ["AI", "IT", "Software"]
-            }
+            validation: (rule) => rule.min(1).max(20)
         }),
         defineField({
             name: "pitch",

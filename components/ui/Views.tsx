@@ -18,7 +18,7 @@ export default async function Views({id}: {id: string}) {
         <div className={"flex items-center gap-1 leading-1"}>
 
             <span><Eye width={15}/></span>
-            <p>{views}</p>
+            <p>{views || 0}</p>
             <div className={"live_indicator"}/>
         </div>
     )
