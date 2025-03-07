@@ -6,6 +6,7 @@ const Layout = ({children}: Readonly<{ children: React.ReactNode }>) => {
         <>
             <Navbar/>
                 {children}
+
         </>
     );
 };

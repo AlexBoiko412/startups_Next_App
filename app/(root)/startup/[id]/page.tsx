@@ -1,5 +1,5 @@
 import {client} from "@/sanity/lib/client";
-import {STARTUP_BY_ID_QUERY} from "@/sanity/lib/queries";
+import {PLAYLIST_BY_SLUG_QUERY, STARTUP_BY_ID_QUERY} from "@/sanity/lib/queries";
 import {notFound} from "next/navigation";
 import {formatDate} from "@/lib/utils";
 import React, {Suspense} from "react";
@@ -9,6 +9,7 @@ import Image from "next/image";
 import markdown from "markdown-it"
 import {Skeleton} from "@/components/ui/skeleton";
 import Views from "@/components/ui/Views";
+import StartupCard, {StartupCardType} from "@/components/StartupCard";
 
 const md = markdown();
 
@@ -18,8 +19,12 @@ export const experimental_ppr = true
 export default async function Startup({params}: {params: Promise<{id: string}>}) {
     const id = (await params).id;
 
-    const post = await client.fetch(STARTUP_BY_ID_QUERY, {id})
-
+    const [post, {startups: monthPicks}] = await Promise.all([
+        await client.fetch(STARTUP_BY_ID_QUERY, {id}),
+        await client.fetch(PLAYLIST_BY_SLUG_QUERY, {
+            slug: "month-picks"
+        })
+    ])
     if(!post) {
         return notFound();
     }
@@ -30,9 +35,12 @@ export default async function Startup({params}: {params: Promise<{id: string}>})
         <>
             <section className={"pt-10 px-20"}>
                 <div className={"flex justify-between"}>
-                    <p className={"category-button"}>
-                        {post.category}
-                    </p>
+                    <Link href={`/?query=${post.category}`}>
+                        <p className={"category-button"}>
+                            {post.category}
+                        </p>
+                    </Link>
+
                     <Suspense fallback={<Skeleton/>}>
                         <Views id={post._id}/>
                     </Suspense>
@@ -89,7 +97,18 @@ export default async function Startup({params}: {params: Promise<{id: string}>})
             </section>
 
             <section className={"pt-10 px-20"}>
-
+                <h2 className={"title"}>
+                    Month Picks:
+                </h2>
+                <ul className={"cards-grid"}>
+                    {monthPicks?.length > 0 ?
+                        (monthPicks.map((post: StartupCardType) => {
+                            return <StartupCard post={post} key={post._id}/>
+                        }))
+                        :
+                        <h2 className={"title"}>There is no such startups</h2>
+                    }
+                </ul>
             </section>
          </>
     )
