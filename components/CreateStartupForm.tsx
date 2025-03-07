@@ -21,6 +21,14 @@ const initialState = {
 
 const CreateStartupForm = () => {
 
+    const [formSave, setFormSave] = useState({
+        title: "",
+        description: "",
+        category: "",
+        link: "",
+    })
+
+
     const [errors, setErrors] = useState<Record<string, string>>({})
     const [state, action, isPending] = useActionState(createStartup, initialState)
     const [pitch, setPitch] = useState("**Hello world!**")
@@ -91,6 +99,10 @@ const CreateStartupForm = () => {
                     name="title"
                     className=""
                     placeholder={"Title"}
+                    value={formSave.title}
+                    onChange={(e) =>
+                        setFormSave({ ...formSave, title: e.target.value })
+                    }
                 />
                 {errors.title && <p className={"error-label"}>{errors.title}</p>}
             </div>
@@ -108,6 +120,10 @@ const CreateStartupForm = () => {
                     name="description"
                     className=""
                     placeholder={"Description"}
+                    value={formSave.description}
+                    onChange={(e) =>
+                        setFormSave({ ...formSave, description: e.target.value })
+                    }
                 />
                 {errors.description && <p className={"error-label"}>{errors.description}</p>}
             </div>
@@ -124,6 +140,10 @@ const CreateStartupForm = () => {
                     name="category"
                     className=""
                     placeholder={"Category"}
+                    value={formSave.category}
+                    onChange={(e) =>
+                        setFormSave({ ...formSave, category: e.target.value })
+                    }
                 />
                 {errors.category && <p className={"error-label"}>{errors.category}</p>}
             </div>
@@ -140,6 +160,10 @@ const CreateStartupForm = () => {
                     name="link"
                     className=""
                     placeholder={"Link"}
+                    value={formSave.link}
+                    onChange={(e) =>
+                        setFormSave({ ...formSave, link: e.target.value })
+                    }
                 />
                 {errors.link && <p className={"error-label"}>{errors.link}</p>}
             </div>
