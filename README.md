@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Startups Next App
 
-## Getting Started
+## Overview
 
-First, run the development server:
+Startups Next App is a full-stack web application built with Next.js 15, designed to showcase a directory of startup profiles. This project demonstrates my ability to create an enterprise-ready, SEO-optimized, and performance-driven application with real-time data fetching and user authentication. It was developed as the capstone project for a comprehensive Next.js course, highlighting my skills in modern web development.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Next.js 15**: Official React framework for routing, rendering, and full-stack capabilities.
+- **React 19**: Component-based UI development.
+- **Sanity**: API-based platform for structured content management.
+- **TypeScript**: Static typing for enhanced code reliability.
+- **TailwindCSS**: Utility-first CSS for rapid, responsive styling.
+- **NextAuth**: Secure authentication with GitHub integration.
+- **Sentry**: Performance monitoring and error tracking.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Dynamic Startup Listings**: Fetches and displays startup data in real-time using Sanity’s Content API.
+- **Authentication**: Secure GitHub login for user access via NextAuth.
+- **Search Functionality**: Real-time search with URL query parameters for seamless filtering.
+- **SEO Optimization**: Leverages Next.js metadata for improved search engine visibility.
+- **Performance**: Implements Server-Side Rendering (SSR), Static Site Generation (SSG), and caching strategies.
+- **Responsive Design**: Clean, minimalistic UI built with TailwindCSS.
+- **Full-Stack Capabilities**: Server Actions and Route Handlers for backend logic.
 
-## Learn More
+## Project Highlights
 
-To learn more about Next.js, take a look at the following resources:
+- Built with Next.js 15’s latest features, including App Router, Server Components, and Partial Pre-rendering.
+- Integrated Sanity for content management, ensuring scalable and dynamic data handling.
+- Optimized for performance using caching, parallel data fetching, and Sentry for bug tracking.
+- Deployable as a serverless application, showcasing modern architecture principles.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Setup Instructions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the Repository**  
+   ```bash
+   git clone https://github.com/AlexBoiko412/startups_Next_App.git
+   cd startups_Next_App
+   ```
 
-## Deploy on Vercel
+2. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Configure Environment Variables**  
+   Create a `.env.local` file with the following:
+   ```env
+   NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
+   NEXT_PUBLIC_SANITY_DATASET=your_dataset
+   NEXT_PUBLIC_SANITY_API_VERSION=vX
+   SANITY_TOKEN=your_sanity_token
+   AUTH_SECRET=your_auth_secret
+   AUTH_GITHUB_ID=your_github_id
+   AUTH_GITHUB_SECRET=your_github_secret
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Run Locally**
+   ```bash
+   npm run dev
+   ```
+   Visit [http://localhost:3000](http://localhost:3000) to explore the app.
+
+
+This project showcases my ability to:
+- Build scalable, full-stack applications with Next.js and TypeScript.
+- Implement modern web development practices like SSR, SSG, and ISR.
+- Integrate third-party APIs and authentication systems effectively.
+- Deliver a polished, user-friendly experience optimized for performance and SEO.
+
+## Contact
+
+For inquiries reach out via [LinkedIn](https://www.linkedin.com/in/oleksandr-boiko01/) or email me at bojkosasa78@gmail.com.
