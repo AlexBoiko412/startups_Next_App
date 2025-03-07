@@ -2,7 +2,7 @@
 
 
 import {Input} from "@/components/ui/input";
-import {useActionState, useState} from "react";
+import React, {useActionState, useState} from "react";
 import {Textarea} from "@/components/ui/textarea";
 import MDEditor from "@uiw/react-md-editor"
 import {Button} from "@/components/ui/Button";
@@ -11,6 +11,7 @@ import z from "zod";
 import {toast} from "sonner"
 import {useRouter} from "next/navigation";
 import {publishStartup} from "@/lib/actions";
+import {Toaster} from "@/components/ui/sonner";
 
 
 const initialState = {
@@ -24,7 +25,6 @@ const CreateStartupForm = () => {
     const [state, action, isPending] = useActionState(createStartup, initialState)
     const [pitch, setPitch] = useState("**Hello world!**")
     const router = useRouter()
-
 
     async function createStartup(prevState: any, formData: FormData) {
         try {
@@ -42,7 +42,7 @@ const CreateStartupForm = () => {
             const result = await publishStartup(prevState, formData, pitch)
 
             if(result.status === "SUCCESS") {
-                toast.error("Your information has been successfully published")
+                toast.success("Your information has been successfully published")
                 router.push(`/startup/${result._id}`)
             }
 
@@ -77,6 +77,7 @@ const CreateStartupForm = () => {
             action={action}
             className={"flex flex-col gap-10"}
         >
+            <Toaster position="top-center"/>
             <div>
                 <label
                     htmlFor="title"
